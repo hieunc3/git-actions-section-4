@@ -1,0 +1,16 @@
+name:  Docker with Github Actions
+
+on:
+ push:
+   
+jobs:
+   node-docker:
+    runs-on: ubuntu-latest
+    # using docker container in the virtual machine
+    container: 
+     image: node:14-alpine3.15
+    steps:
+      - name:  log our node version
+        run:   |
+          node -v
+          cat /etc/os-release
