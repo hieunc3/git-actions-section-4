@@ -1,0 +1,17 @@
+name:  Matrix
+
+on: 
+ push:
+   
+jobs:
+  node-version:
+    runs-on:  ubuntu-latest
+    steps:
+      - name: log out node version
+        run:  node -v
+      - name:  setup new node version
+        uses: actions/setup-node@v3
+        with:
+          node-version:  6
+      - name: log out node version again
+        run:  node -v
