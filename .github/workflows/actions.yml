@@ -5,6 +5,11 @@ on:
    
 jobs:
   node-version:
+    strategy:
+      matrix:
+        node_version: [6,8,10]
+      #fail-fast: false
+      #max-parallel: 0
     runs-on:  ubuntu-latest
     steps:
       - name: log out node version
@@ -12,6 +17,6 @@ jobs:
       - name:  setup new node version
         uses: actions/setup-node@v3
         with:
-          node-version:  6
+          node-version:  ${{ matrix.node_version }}
       - name: log out node version again
         run:  node -v
