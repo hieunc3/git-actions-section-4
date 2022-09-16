@@ -7,10 +7,24 @@ jobs:
   node-version:
     strategy:
       matrix:
+      # Using a single-dimension matrix / multiple-dimension matrix
         node_version: [6,8,10]
+        os: [ubuntu-latest,windows-latest,macos-latest]
+        #include extract variable for certain configuration that already exist in the matrix
+        include: 
+         - os: ubuntu-latest
+           node_version: 8
+           is_unbuntu_8: "true"
+        exclude:
+         - os: ubuntu-latest
+           node_version: 6
+         - os: macos-latest
+           node_version: 10
       #fail-fast: false
       #max-parallel: 0
-    runs-on:  ubuntu-latest
+    runs-on: ${{ matrix.os }}  
+    env:
+        IS_UBUNTU_8: ${{ matrix.is_unbuntu_8 }}
     steps:
       - name: log out node version
         run:  node -v
@@ -19,4 +33,6 @@ jobs:
         with:
           node-version:  ${{ matrix.node_version }}
       - name: log out node version again
-        run:  node -v
+        run:  |
+         node -v
+         echo $IS_UBUNTU_8
